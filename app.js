@@ -9,18 +9,20 @@
     if (!container) return;
 
     const icons = [
-        'diagnostic.png','chipset.png','car-engine.png','electric-vehicle.png',
-        'speedometer.png','wireless.png','turbo.png','steering-wheel.png',
-        'electric-motor.png','battery.png','disc-brake.png','brake-system-warning.png',
-        'piston.png','radiator.png','car-service.png','drivetrain.png',
-        'manual-gear-shift.png','airbag.png','shock-absorber.png','fuel.png',
-        'oil.png','spark-plug.png','fuse.png','components.png','muffler.png',
-        'engine-coolant.png','high-beam.png','low-beam.png','parking-lights.png',
-        'turn-signals.png','hazard.png','malfunction-indicador.png','pedal.png',
-        'lift.png','tow-truck.png','warning.png'
+        'diagnostic.webp','chipset.webp','car-engine.webp','electric-vehicle.webp',
+        'speedometer.webp','wireless.webp','turbo.webp','steering-wheel.webp',
+        'electric-motor.webp','battery.webp','disc-brake.webp','brake-system-warning.webp',
+        'piston.webp','radiator.webp','car-service.webp','drivetrain.webp',
+        'manual-gear-shift.webp','airbag.webp','shock-absorber.webp','fuel.webp',
+        'oil.webp','spark-plug.webp','fuse.webp','components.webp','muffler.webp',
+        'engine-coolant.webp','high-beam.webp','low-beam.webp','parking-lights.webp',
+        'turn-signals.webp','hazard.webp','malfunction-indicador.webp','pedal.webp',
+        'lift.webp','tow-truck.webp','warning.webp'
     ];
 
-    const COUNT = 55; // total icons to scatter
+    // Performance: reduce count drastically on mobile to prevent DOM lag
+    const isMobile = window.innerWidth <= 768;
+    const COUNT = isMobile ? 12 : 25; // originally 55, which is too heavy
     const rnd   = (min, max) => Math.random() * (max - min) + min;
     const pick  = arr => arr[Math.floor(Math.random() * arr.length)];
 
@@ -64,7 +66,9 @@
     resize();
     window.addEventListener('resize', resize);
 
-    const PARTICLE_COUNT = 60;
+    // Performance: reduce canvas particle count on mobile screens
+    const isMobile = window.innerWidth <= 768;
+    const PARTICLE_COUNT = isMobile ? 25 : 60;
     const particles = [];
 
     class Particle {
